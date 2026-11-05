@@ -4,15 +4,23 @@ public class Refrigerator : Appliance
     public int AgeYears { get; }
     public int CompressorIssues { get; }
 
+
+
+
     public Refrigerator(string serialNumber, string brand, int capacityLiters, int ageYears, int compressorIssues)
         : base(serialNumber, brand)
     {
         if (capacityLiters <= 0)
             throw new ArgumentOutOfRangeException(nameof(capacityLiters), "Capacity must be greater than zero.");
 
+
+
+
         if (ageYears < 0)
             throw new ArgumentOutOfRangeException(nameof(ageYears), "Age cannot be negative.");
 
+
+   
         if (compressorIssues < 0)
             throw new ArgumentOutOfRangeException(nameof(compressorIssues), "Compressor issues cannot be negative.");
 
