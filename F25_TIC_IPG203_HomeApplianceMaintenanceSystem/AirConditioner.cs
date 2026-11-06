@@ -1,21 +1,45 @@
 public class AirConditioner : Appliance
 {
-    public decimal CoolingCapacityKw { get; }
-    public int AgeYears { get; }
-    public int FilterIssues { get; }
+    private decimal coolingCapacityKw;
+    private int ageYears;
+    private int filterIssues;
+
+    public decimal CoolingCapacityKw
+    {
+        get => coolingCapacityKw;
+        private set
+        {
+            if (value <= 0)
+                throw new ArgumentOutOfRangeException(nameof(value), "Cooling capacity must be greater than zero.");
+            coolingCapacityKw = value;
+        }
+    }
+
+    public int AgeYears
+    {
+        get => ageYears;
+        private set
+        {
+            if (value < 0)
+                throw new ArgumentOutOfRangeException(nameof(value), "Age cannot be negative.");
+            ageYears = value;
+        }
+    }
+
+    public int FilterIssues
+    {
+        get => filterIssues;
+        private set
+        {
+            if (value < 0)
+                throw new ArgumentOutOfRangeException(nameof(value), "Filter issues cannot be negative.");
+            filterIssues = value;
+        }
+    }
 
     public AirConditioner(string serialNumber, string brand, decimal coolingCapacityKw, int ageYears, int filterIssues)
         : base(serialNumber, brand)
     {
-        if (coolingCapacityKw <= 0)
-            throw new ArgumentOutOfRangeException(nameof(coolingCapacityKw), "Cooling capacity must be greater than zero.");
-
-        if (ageYears < 0)
-            throw new ArgumentOutOfRangeException(nameof(ageYears), "Age cannot be negative.");
-
-        if (filterIssues < 0)
-            throw new ArgumentOutOfRangeException(nameof(filterIssues), "Filter issues cannot be negative.");
-
         CoolingCapacityKw = coolingCapacityKw;
         AgeYears = ageYears;
         FilterIssues = filterIssues;

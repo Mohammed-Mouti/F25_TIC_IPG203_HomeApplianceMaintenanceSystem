@@ -1,22 +1,52 @@
 public class WashingMachine : Appliance
 {
-    public decimal DrumCapacityKg { get; }
-    public int AgeYears { get; }
-    public int MotorIssues { get; }
-    public bool IsFrontLoader { get; }
+    private decimal drumCapacityKg;
+    private int ageYears;
+    private int motorIssues;
+    private bool isFrontLoader;
+
+    public decimal DrumCapacityKg
+    {
+        get => drumCapacityKg;
+        private set
+        {
+            if (value <= 0)
+                throw new ArgumentOutOfRangeException(nameof(value), "Drum capacity must be greater than zero.");
+            drumCapacityKg = value;
+        }
+    }
+
+    public int AgeYears
+    {
+        get => ageYears;
+        private set
+        {
+            if (value < 0)
+                throw new ArgumentOutOfRangeException(nameof(value), "Age cannot be negative.");
+            ageYears = value;
+        }
+    }
+
+    public int MotorIssues
+    {
+        get => motorIssues;
+        private set
+        {
+            if (value < 0)
+                throw new ArgumentOutOfRangeException(nameof(value), "Motor issues cannot be negative.");
+            motorIssues = value;
+        }
+    }
+
+    public bool IsFrontLoader
+    {
+        get => isFrontLoader;
+        private set => isFrontLoader = value;
+    }
 
     public WashingMachine(string serialNumber, string brand, decimal drumCapacityKg, int ageYears, int motorIssues, bool isFrontLoader)
         : base(serialNumber, brand)
     {
-        if (drumCapacityKg <= 0)
-            throw new ArgumentOutOfRangeException(nameof(drumCapacityKg), "Drum capacity must be greater than zero.");
-
-        if (ageYears < 0)
-            throw new ArgumentOutOfRangeException(nameof(ageYears), "Age cannot be negative.");
-
-        if (motorIssues < 0)
-            throw new ArgumentOutOfRangeException(nameof(motorIssues), "Motor issues cannot be negative.");
-
         DrumCapacityKg = drumCapacityKg;
         AgeYears = ageYears;
         MotorIssues = motorIssues;

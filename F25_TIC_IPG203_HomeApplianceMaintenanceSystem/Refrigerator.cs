@@ -1,29 +1,45 @@
 public class Refrigerator : Appliance
 {
-    public int CapacityLiters { get; }
-    public int AgeYears { get; }
-    public int CompressorIssues { get; }
+    private int capacityLiters;
+    private int ageYears;
+    private int compressorIssues;
 
+    public int CapacityLiters
+    {
+        get => capacityLiters;
+        private set
+        {
+            if (value <= 0)
+                throw new ArgumentOutOfRangeException(nameof(value), "Capacity must be greater than zero.");
+            capacityLiters = value;
+        }
+    }
 
+    public int AgeYears
+    {
+        get => ageYears;
+        private set
+        {
+            if (value < 0)
+                throw new ArgumentOutOfRangeException(nameof(value), "Age cannot be negative.");
+            ageYears = value;
+        }
+    }
 
+    public int CompressorIssues
+    {
+        get => compressorIssues;
+        private set
+        {
+            if (value < 0)
+                throw new ArgumentOutOfRangeException(nameof(value), "Compressor issues cannot be negative.");
+            compressorIssues = value;
+        }
+    }
 
     public Refrigerator(string serialNumber, string brand, int capacityLiters, int ageYears, int compressorIssues)
         : base(serialNumber, brand)
     {
-        if (capacityLiters <= 0)
-            throw new ArgumentOutOfRangeException(nameof(capacityLiters), "Capacity must be greater than zero.");
-
-
-
-
-        if (ageYears < 0)
-            throw new ArgumentOutOfRangeException(nameof(ageYears), "Age cannot be negative.");
-
-
-   
-        if (compressorIssues < 0)
-            throw new ArgumentOutOfRangeException(nameof(compressorIssues), "Compressor issues cannot be negative.");
-
         CapacityLiters = capacityLiters;
         AgeYears = ageYears;
         CompressorIssues = compressorIssues;
