@@ -1,8 +1,12 @@
-﻿public abstract class Appliance : IMaintainable
+public delegate void StatusChangedHandler(string message);
+
+public abstract class Appliance : IMaintainable
 {
     private string serialNumber;
     private string brand;
     private string status;
+
+    public event StatusChangedHandler? OnStatusChanged;
 
     public string SerialNumber
     {
@@ -19,7 +23,14 @@
     public string Status
     {
         get { return status; }
-        set { status = value; }
+        set
+        {
+            status = value;
+            if (status == "Completed" || status == "Delayed")
+            {
+                OnStatusChanged?.Invoke($"[Notification] {brand} ({serialNumber}) maintenance status: {status}");
+            }
+        }
     }
 
     protected Appliance(string serialNumber, string brand)
@@ -34,6 +45,11 @@
     public virtual void StartMaintenance()
     {
         Status = "Under Maintenance";
+    }
+
+    public virtual void CompleteMaintenance()
+    {
+        Status = "Completed";
     }
 
     public abstract string GetStatusDetails();

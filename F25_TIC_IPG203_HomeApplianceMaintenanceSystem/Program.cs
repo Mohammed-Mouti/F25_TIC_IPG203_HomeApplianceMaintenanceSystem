@@ -1,4 +1,4 @@
-﻿// See https://aka.ms/new-console-template for more information
+// See https://aka.ms/new-console-template for more information
 using System;
 using System.Collections.Generic;
 
@@ -16,12 +16,15 @@ decimal totalRepairCost = 0m;
 
 foreach (Appliance appliance in appliances)
 {
+    appliance.OnStatusChanged += message => Console.WriteLine(message);
+
     appliance.StartMaintenance();
     double repairCost = appliance.CalculateRepairCost();
     totalRepairCost += (decimal)repairCost;
 
     Console.WriteLine(appliance.GetStatusDetails());
     Console.WriteLine($"Repair cost: {repairCost} SYP");
+    appliance.CompleteMaintenance();
     Console.WriteLine();
 }
 
