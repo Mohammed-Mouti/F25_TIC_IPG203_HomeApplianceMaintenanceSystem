@@ -4,6 +4,9 @@ public class AirConditioner : Appliance
     private int ageYears;
     private int filterIssues;
 
+
+
+
     public decimal CoolingCapacityKw
     {
         get => coolingCapacityKw;
