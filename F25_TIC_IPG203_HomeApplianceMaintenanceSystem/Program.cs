@@ -13,10 +13,11 @@ Console.WriteLine("Home Appliance Maintenance System - Inheritance and Polymorph
 Console.WriteLine(new string('-', 72));
 
 decimal totalRepairCost = 0m;
+StatusChangedHandler statusChangedHandler = HandleStatusChanged;
 
 foreach (Appliance appliance in appliances)
 {
-    appliance.OnStatusChanged += message => Console.WriteLine(message);
+    appliance.OnStatusChanged += statusChangedHandler;
 
     appliance.StartMaintenance();
     double repairCost = appliance.CalculateRepairCost();
@@ -24,9 +25,19 @@ foreach (Appliance appliance in appliances)
 
     Console.WriteLine(appliance.GetStatusDetails());
     Console.WriteLine($"Repair cost: {repairCost} SYP");
-    appliance.CompleteMaintenance();
+
+    if (repairCost > 600)
+        appliance.DelayMaintenance();
+    else
+        appliance.CompleteMaintenance();
+
     Console.WriteLine();
 }
 
 Console.WriteLine(new string('-', 72));
 Console.WriteLine($"Total repair cost: {totalRepairCost} SYP");
+
+static void HandleStatusChanged(string message)
+{
+    Console.WriteLine(message);
+}

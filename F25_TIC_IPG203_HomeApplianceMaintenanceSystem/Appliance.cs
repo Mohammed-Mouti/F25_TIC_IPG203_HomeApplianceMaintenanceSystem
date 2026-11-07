@@ -38,6 +38,9 @@ public abstract class Appliance : IMaintainable
             if (string.IsNullOrWhiteSpace(value))
                 throw new ArgumentException("Status cannot be null or empty.", nameof(value));
 
+            if (status == value)
+                return;
+
             status = value;
             if (status == "Completed" || status == "Delayed")
             {
@@ -63,6 +66,11 @@ public abstract class Appliance : IMaintainable
     public virtual void CompleteMaintenance()
     {
         Status = "Completed";
+    }
+
+    public virtual void DelayMaintenance()
+    {
+        Status = "Delayed";
     }
 
     public abstract string GetStatusDetails();
